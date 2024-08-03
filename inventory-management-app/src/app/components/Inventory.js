@@ -1,8 +1,7 @@
-'use client';
-
+// src/components/Inventory/Inventory.js
 import { useState, useEffect } from 'react';
 import { Box, Stack, Typography, Button, Modal, TextField } from '@mui/material';
-import { firestore } from './firebase'; // Adjust the path if necessary
+import { firestore } from '../firebase'; // Adjust path if necessary
 import {
   collection,
   doc,
@@ -28,7 +27,7 @@ const style = {
   gap: 3,
 };
 
-export default function Home() {
+export default function Inventory() {
   const [inventory, setInventory] = useState([]);
   const [filteredInventory, setFilteredInventory] = useState([]);
   const [open, setOpen] = useState(false);
@@ -136,7 +135,7 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <Button variant="contained" sx={{ bgcolor: 'orange' }}  onClick={handleOpen}>
+      <Button variant="contained" onClick={handleOpen}>
         Add New Item
       </Button>
       <Stack width="800px" spacing={2} sx={{ mb: 2 }}>
@@ -170,7 +169,7 @@ export default function Home() {
         <Box
           width="800px"
           height="100px"
-          bgcolor="#FFA500"
+          bgcolor="#ADD8E6"
           display="flex"
           justifyContent="center"
           alignItems="center"
@@ -194,20 +193,20 @@ export default function Home() {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              bgcolor="#FFD580"
+              bgcolor="#f0f0f0"
               paddingX={5}
             >
-              <Typography variant="h4" color="#333" textAlign="center">
+              <Typography variant="h3" color="#333" textAlign="center">
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </Typography>
-              <Typography variant="h4" color="#333" textAlign="center">
+              <Typography variant="h3" color="#333" textAlign="center">
                 Quantity: {quantity}
               </Typography>
               <Stack direction="row" spacing={1}>
                 <Button variant="contained" onClick={() => removeItem(name)}>
                   -
                 </Button>
-                <Button variant="contained" sx={{ bgcolor: 'green' }} onClick={() => addItem(name)}>
+                <Button variant="contained" onClick={() => addItem(name)}>
                   +
                 </Button>
                 <Button variant="contained" onClick={() => removeItem(name)}>

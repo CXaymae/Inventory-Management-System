@@ -1,45 +1,69 @@
-// src/app/components/SignUp.js
 import { useState } from 'react';
-import { auth } from '../../firebase';
+import { Box, TextField, Button, Typography } from '@mui/material';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { useRouter } from 'next/router';
+import { auth } from '../../firebase'; // Adjust the path if necessary
 
-const SignUp = () => {
+export default function SignUp({ onBack }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const router = useRouter();
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
+  const handleSignUp = async () => {
+    if (password !== confirmPassword) {
+      console.error('Passwords do not match.');
+      return;
+    }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.push('/inventory'); // Redirect to inventory page on successful signup
-    } catch (err) {
-      setError(err.message);
+      // Redirect or update UI as needed
+    } catch (error) {
+      console.error('Error signing up:', error.message);
     }
   };
 
   return (
-    <form onSubmit={handleSignUp}>
-      <input
-        type="email"
+    <Box
+      width="100vw"
+      height="100vh"
+      display="flex"
+      justifyContent="center"
+      flexDirection="column"
+      alignItems="center"
+      gap={2}
+      bgcolor="#f0f0f0"
+    >
+      <Typography variant="h4" color="#333" textAlign="center">
+        Sign Up
+      </Typography>
+      <TextField
+        label="Email"
+        variant="outlined"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
+        fullWidth
       />
-      <input
+      <TextField
+        label="Password"
+        variant="outlined"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
+        fullWidth
       />
-      <button type="submit">Sign Up</button>
-      {error && <p>{error}</p>}
-    </form>
+      <TextField
+        label="Confirm Password"
+        variant="outlined"
+        type="password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        fullWidth
+      />
+      <Button variant="contained" onClick={handleSignUp}>
+        Sign Up
+      </Button>
+      <Button variant="text" onClick={onBack}>
+        Back
+      </Button>
+    </Box>
   );
-};
-
-export default SignUp;
+}
