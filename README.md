@@ -3,14 +3,6 @@
 ## Overview
 This project is an Inventory Management System built with React and Material-UI on the front-end and Firebase Firestore on the back-end. It allows users to add, remove, and filter inventory items.
 
-## Table of Contents
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Components](#components)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Installation
 To get started with the project, follow these steps:
 
